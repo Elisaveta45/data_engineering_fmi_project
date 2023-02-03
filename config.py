@@ -1,24 +1,46 @@
 # input args
 FROM_DATE = None
-END_DATE = None
+TO_DATE = None
 
-# Timeseries
-TS_NAME = "varmelast_dk"
-CONTAINER = "mcp-feed-varmelast-dk"
-DESCRIPTION = "Denmark heat data from: https://www.varmelast.dk/"
-TIMEZONE = "UTC"
-TAGS = ["heat", "vermelast", "dk", "denmark"]
-PRIMARY_KEYS = ["key", "created_at"]
+URL = "http://www.varmelast.dk/api/v1/heatdata/historical"
+DATA_DICT = {
+    "Kraftvarmeanlæg": "Cogeneration plant",
+    "VEKS": "VEKS",
+    "Biogas": "Biogas",
+    "Geotermi": "Geothermal",
+    "Industriel overskudsvarme": "Industrial waste heat",
+    "Spidslast gas": "Peak load gas",
+    "Lokal produktion": "Local production",
+    "Solvarme": "Solar heating",
+    "Spidslast el": "Peak load el",
+    "Varmepumper": "Heat pumps",
+    "CTR": "CTR",
+    "Spidslast træpiller": "Peak load wood pellets",
+    "Affaldsenergianlæg": "Waste energy plant",
+    "Produktion i alt": "Total production",
+    "Spidslast olie": "Peak load oil",
+    "CO2 - Udledning": "CO2 - Emission",
+}
+
+INPUT_DICT = {
+    1: "Cogeneration plant",
+    2: "VEKS",
+    3: "Biogas",
+    4: "Geothermal",
+    5: "Industrial waste heat",
+    6: "Peak load gas",
+    7: "Local production",
+    8: "Solar heating",
+    9: "Peak load el",
+    10: "Heat pumps",
+    11: "CTR",
+    12: "Peak load wood pellets",
+    13: "Waste energy plant",
+    14: "Total production",
+    15: "Peak load oil",
+    16: "CO2 - Emission",
+}
 
 # Other
-ENDORSEMENT = "gold"
-PROXIES = None
 DATE_FORMAT = r"%Y-%m-%d"
 ERRORS = []
-
-# Logger
-LOG_SEPARATOR = "-" * 65
-LOG_LEVEL = "INFO"
-LOG_FORMAT_STRING = "%(name)s %(asctime)s %(levelname)-8s %(processName)s [%(filename)s:%(lineno)d] %(message)s"
-WARN_MSG_START = "\n---------------------------------- WARNING START ------------------------------------"
-WARN_MSG_END = "\n----------------------------------- WARNING END -------------------------------------"
