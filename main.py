@@ -1,4 +1,5 @@
 import unittest
+import re
 
 import worker
 import config
@@ -56,7 +57,14 @@ def input_data_type():
         "Data type(from the above list) that you want:"
     )
 
-    return input_param
+    pattern = re.compile(r"all|(\d+,)*\d+$")
+
+    if pattern.match(input_param):
+
+        return pattern.match(input_param).group()
+    else:
+
+        return None
 
 
 def main():
@@ -77,14 +85,20 @@ def main():
 
     if df.empty:
         print(f"No data found in varmelast.dk for the given period")
+
         return
     else:
         data_type = input_data_type()
 
-        try:
-            create_plot(df, data_type)
-        except Exception as ex:
-            raise Exception(ex)
+        if data_type is None:
+
+            raise Exception("Incorrect input parameter for data type.")
+
+        else:
+            try:
+                create_plot(df, data_type)
+            except Exception as ex:
+                raise Exception(ex)
 
 
 if __name__ == "__main__":
